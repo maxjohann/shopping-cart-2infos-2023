@@ -43,7 +43,7 @@ function formatarPreco(preco) {
         </div>
       </div>
       <m-button @click="limparCarrinho()" text="Limpar carrinho" />
-      <m-button text="Finalizar compra" />
+      <m-button @click="FinalizarCompra()" text="Finalizar compra" />
       <p class="carrinho-total">Total: {{ formatarPreco(carrinho.total) }}</p>
     </div>
   </div>
