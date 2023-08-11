@@ -1,26 +1,29 @@
 <script setup>
+
 const props = defineProps({
-  text: String
+    texto: String
 })
 </script>
 
 <template>
-  <button>{{ props.text }}</button>
+<button>{{ props.texto }}</button>
+
 </template>
 
 <style scoped>
+
 button {
-  background-color: blue;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  padding: 10px;
-  font-size: 1.2rem;
-  cursor: pointer;
-  margin: 5px;
+    background-color: rgb(0, 0, 0);
+    color: white;
+    font-size: 1.1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
 button:hover {
-  background-color: darkblue;
+    background-color: rgb(43, 40, 40)
 }
+
 </style>

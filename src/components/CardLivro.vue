@@ -1,11 +1,9 @@
 <script setup>
 import MButton from './MButton.vue'
-
+import { adicionarAoCarrinho } from '@/_data/carrinho.js';
 const props = defineProps({
-  livro: Object
+    livro: Object
 })
-
-const emit = defineEmits(['adicionarAoCarrinho'])
 
 function formatarPreco(preco) {
   return 'R$ ' + preco.toFixed(2).replace('.', ',')
@@ -13,30 +11,34 @@ function formatarPreco(preco) {
 </script>
 
 <template>
-  <div class="card-livro">
-    <div class="card-info-livro">
-      <div class="wrap-livro">
-        <img :src="props.livro.img" alt="Capa do livro" class="capa-livro" />
-      </div>
-      <p class="titulo-livro">{{ props.livro.title }}</p>
-      <p class="autor-livro">{{ props.livro.author }}</p>
-      <p class="preco-livro">{{ formatarPreco(props.livro.price) }}</p>
-    </div>
-    <div class="card-buttons-livros">
-      <m-button
-        @click="emit('adicionarAoCarrinho', props.livro)"
-        text="Adicionar ao carrinho"
-      ></m-button>
-      <m-button text="Compartilhar" />
-    </div>
-  </div>
-</template>
 
+<div class="card-livro">
+        <div class="card-info-livro">
+          <div class="wrap-livro">
+            <img :src="props.livro.img" alt="Capa do livro" class="capa-livro" />
+          </div>
+          <p class="titulo-livro">{{ props.livro.title }}</p>
+          <p class="autor-livro">{{ props.livro.author }}</p>
+          <p class="preco-livro">{{ formatarPreco(props.livro.price) }}</p>
+        </div>
+        <div class="card-buttons-livros">
+          <m-button @click="adicionarAoCarrinho(props.livro)" texto="&#128722;" />
+          <m-button @click="favoritar(props.livro)" texto="🤍" />
+        </div>
+      </div>
+    
+
+</template>
+import {
+  carrinho, adicionarAoCarrinho, removerItemCarrinho, atualizaQuantidadeItem, limparCarrinho 
+} from '@/_data/carrinho.js'
 <style scoped>
+
+
 .card-livro {
   margin: 5px 10px;
   padding: 10px;
-  background-color: beige;
+  background-color: white;
   border-radius: 10px;
   width: 180px;
   display: flex;
@@ -48,7 +50,7 @@ function formatarPreco(preco) {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: rgb(253, 253, 253);
   border-radius: 10px;
   width: 180px;
   height: 270px;
@@ -66,4 +68,5 @@ function formatarPreco(preco) {
   font-weight: bold;
   margin-bottom: 5px;
 }
+
 </style>

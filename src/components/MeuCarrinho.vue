@@ -1,53 +1,65 @@
 <script setup>
-import { carrinho, removerItemCarrinho, atualizaQuantidadeItem, limparCarrinho } from '@/_data/carrinho.js'
-import MButton from './MButton.vue'
-import CarrinhoVazio from './CarrinhoVazio.vue'
+import {
+  carrinho,
+  adicionarAoCarrinho,
+  removerItemCarrinho,
+  atualizaQuantidadeItem,
+  limparCarrinho
+} from '@/_data/carrinho.js'
 
+import MButton from '@/MButton.vue'
+import MMessage from '@/MMessage.vue'
 
 function formatarPreco(preco) {
   return 'R$ ' + preco.toFixed(2).replace('.', ',')
 }
+
 </script>
 
 <template>
-  <div class="carrinho">
-    <h2>Meu carrinho</h2>
-    <div class="wrap-carrinho">
-      <carrinho-vazio v-if="carrinho.itens.length === 0" />
-      <div v-else>
-        <div class="item-carrinho" v-for="(item, index) in carrinho.itens" :key="index">
-          <div class="info-livro">
-            <div class="imagem-livro">
-              <img :src="item.img" class="icon-capa-livro" />
-            </div>
-            <div class="detalhes-livro">
-              <div>
-                <p>{{ item.title }}</p>
-                <p class="info-livro-preco">{{ formatarPreco(item.price) }}/un</p>
+
+<div class="carrinho">
+      <h1 class="title">CARRINHO	&#128722;</h1>
+      <div class="wrap-carrinho">
+        <m-message v-if="carrinho.itens.length === 0"/>
+        <div v-else>
+          <div class="item-carrinho" v-for="(item, index) in carrinho.itens" :key="index">
+            <div class="info-livro">
+              <div class="imagem-livro">
+                <img :src="item.img" class="icon-capa-livro" />
               </div>
-              <div>
-                <p>
-                  Quantidade:
-                  <input
-                    type="number"
-                    v-model="item.quantidade"
-                    @change="atualizaQuantidadeItem(item)"
-                    min="1"
-                  />
-                </p>
-                <button @click="removerItemCarrinho(item)">&#128465;</button>
-                <p>Total: {{ formatarPreco(item.total) }}</p>
+              <div class="detalhes-livro">
+                <div>
+                  <p>{{ item.title }}</p>
+                  <p class="info-livro-preco">{{ formatarPreco(item.price) }}/un</p>
+                </div>
+                <div>
+                  <p>
+                    Quantidade:
+                    <input
+                      type="number"
+                      v-model="item.quantidade"
+                      @change="atualizaQuantidadeItem(item)"
+                      min="1"
+                    />
+                  </p>
+                  <button @click="removerItemCarrinho(item)">&#128465;</button>
+                  <p>Total: {{ formatarPreco(item.total) }}</p>
+                </div>
               </div>
             </div>
           </div>
+          <m-button @click="limparCarrinho()" texto="Limpar carrinho" />
+          <m-button texto="Finalizar compra" @click="$router.push({name: 'form'})"/>
         </div>
-      </div>
-      <m-button @click="limparCarrinho()" text="Limpar carrinho" />
-      <m-button @click="FinalizarCompra()" text="Finalizar compra" />
+      </div>   
+      
       <p class="carrinho-total">Total: {{ formatarPreco(carrinho.total) }}</p>
-    </div>
-  </div>
+        
+</div>
+   
 </template>
+
 
 <style scoped>
 .wrap-carrinho .carrinho-total {
@@ -101,5 +113,20 @@ function formatarPreco(preco) {
   width: 30px;
   margin-right: 10px;
 }
-</style>
+.container-geral {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
 
+} 
+
+.carrinho {
+  min-width: 20%;
+}
+.listagem-livros {
+  display: flex;
+  flex-wrap: wrap;
+}
+.title{
+  color: rgb(0, 0, 0);
+}
+</style>
